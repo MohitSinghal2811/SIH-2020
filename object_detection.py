@@ -1,7 +1,10 @@
 
-# 3 files required -> coco.names,yolov3.weigths,yolov3.cfg and a sample image
+# 3 files required -> coco.names,yolov3.weigths,yolov3.cfg and a sample image .. 
+# link to files https://drive.google.com/drive/folders/1SJ084lQ7ACXnjnrG8Q8tkfvhm4oAma16?usp=sharing
 # change the paths accordingly
 # change the cv2_imshow function if running on laptop,on colab it will work fine
+
+
 
 import numpy as np
 import argparse
