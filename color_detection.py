@@ -1,0 +1,2 @@
+class major_color:
+    

@@ -11,12 +11,12 @@ import time
 import cv2
 import os
 
-class surveillance_frame(object):
+class object_detect(object):
 	
 
 
-  def object_detect(self,frame):
-    path="/content/drive/My Drive/yolo-object-detection/yolo-coco/coco.names"
+  def extract_car(self,frame):
+    path="yolo-coco\coco.names"
     labelsPath = path
     LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -24,16 +24,17 @@ class surveillance_frame(object):
     COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
       dtype="uint8")
 
-    path_weights="/content/drive/My Drive/yolo-object-detection/yolo-coco/yolov3.weights"
-    path_model="/content/drive/My Drive/yolo-object-detection/yolo-coco/yolov3.cfg"
+    path_weights="yolo-coco\yolov3.weights"
+    path_model="yolo-coco\yolov3.cfg"
     weightsPath = path_weights
     configPath = path_model
 
     print("[INFO] loading YOLO from disk...")
     net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
-    imgpath=frame
-    image = cv2.imread(imgpath)																			#---insert path of image here
+    # imgpath=frame
+    # image = cv2.imread(imgpath)		
+    image=frame																	#---insert path of image here
     (H, W) = image.shape[:2]
 
 
@@ -106,7 +107,7 @@ class surveillance_frame(object):
           0.5, color, 2)
 
     
-    cv2_imshow(image)
+    cv2.imshow("frame",image)
     #cv2.imwrite("demo_yolo3.jpg",image)
     print(dict_boundingbox)
     print(dict_confidence)
@@ -120,10 +121,9 @@ class surveillance_frame(object):
       h=bbox[3]
 
       cropped_image=image[y:y+h,x:x+w]
-      cv2_imshow(cropped_image)
+      #cv2.imshow(cropped_image)
+      return cropped_image
       cv2.waitKey(0)
 
 ##################################################
 
-frame=surveillance_frame()
-frame.object_detect("/content/high_car.jpg")
