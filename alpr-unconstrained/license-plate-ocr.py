@@ -10,10 +10,13 @@ from glob					import glob
 from darknet.python.darknet import detect
 from src.label				import dknet_label_conversion
 from src.utils 				import nms
+import csv
+
 
 
 if __name__ == '__main__':
 
+	prop_file = open('plates.csv', 'a', newline='')
 	try:
 	
 		input_dir  = sys.argv[1]
@@ -52,7 +55,8 @@ if __name__ == '__main__':
 					f.write(lp_str + '\n')
 
 				print ('\t\tLP: %s' % lp_str)
-
+				csv_writer = csv.writer(prop_file)
+				csv_writer.writerow([lp_str])
 			else:
 
 				print ('No characters found')

@@ -1,29 +1,20 @@
 import numpy as np
 from cv2 import cv2
-import object_detection
-#import color_detection
-#import model_detection
-#import alpr
-cap=cv2.VideoCapture(0)     #path of video
+import main_from_images
+
+
+path = "Video1.mp4"
+cap=cv2.VideoCapture(path)    
+target = 10
+counter = 0
+
 
 while True:
+    print("counter" + str(counter))
     ret,frame=cap.read()
-    if ret==True:
-        obj_detector=object_detection.object_detect()
-        cropped_car=obj_detector.extract_car(frame)
-
-        color_detector=color_detection.major_color()
-        # insert this color in db
-        color=color_detector.max_color(cropped_car)
-
-        #license plate
-
-        
-
-
-    else:
-        break
-    cv2.imshow("Frame",frame)
-    key=cv2.waitKey(1)
-    if key==27:                      #press esc to force stop the loop before ending of video
-        break
+    if(counter > 400 and counter % target == 0):    
+        if ret==True:
+            main_from_images.image_attr(frame, counter)
+        else:
+            break
+    counter += 1
