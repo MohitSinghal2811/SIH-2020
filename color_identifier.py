@@ -2,7 +2,7 @@ import numpy as np
 from cv2 import cv2
 
 
-path = "alpr-unconstrained/samples/only_cars/2.png"
+path = "alpr-unconstrained/samples/only_cars/5.png"
 frame = cv2.imread(path)
 frame = np.array(frame)
 
