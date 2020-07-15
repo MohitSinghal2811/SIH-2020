@@ -8,7 +8,7 @@
 import numpy as np
 import argparse
 import time
-import cv2
+from cv2 import cv2
 import os
 
 class object_detect(object):
@@ -16,7 +16,7 @@ class object_detect(object):
 
 
   def extract_car(self,frame):
-    path="yolo-coco\coco.names"
+    path="yolo-coco/coco.names"
     labelsPath = path
     LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -24,17 +24,19 @@ class object_detect(object):
     COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
       dtype="uint8")
 
-    path_weights="yolo-coco\yolov3.weights"
-    path_model="yolo-coco\yolov3.cfg"
-    weightsPath = path_weights
-    configPath = path_model
-
+    weightsPath="yolo-coco/yolov3.weights"
+    configPath ="yolo-coco/yolov3.cfg"
+    
     print("[INFO] loading YOLO from disk...")
     net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
-    # imgpath=frame
-    # image = cv2.imread(imgpath)		
-    image=frame																	#---insert path of image here
+
+
+  #This is not the path of the image
+  #it is after cv2 has read the image
+
+
+    image=frame																
     (H, W) = image.shape[:2]
 
 
@@ -55,7 +57,7 @@ class object_detect(object):
     boxes = []
     confidences = []
     classIDs = []
-    keylist=['person', 'bicycle', 'car', 'motorbike', 'bus', 'truck']
+    keylist=['car', 'motorbike', 'bus', 'truck']        # Needs some changes
     dict_boundingbox = {key:[] for key in keylist}
     dict_confidence={key:[] for key in keylist}
 
@@ -108,9 +110,10 @@ class object_detect(object):
 
     
     cv2.imshow("frame",image)
-    #cv2.imwrite("demo_yolo3.jpg",image)
+    cv2.imwrite("detected-cars/demo_yolo3.jpg",image)
     print(dict_boundingbox)
     print(dict_confidence)
+    cropped_images = []
     for bbox in dict_boundingbox['car']:
    # print(bbox)
     
@@ -122,8 +125,16 @@ class object_detect(object):
 
       cropped_image=image[y:y+h,x:x+w]
       #cv2.imshow(cropped_image)
-      return cropped_image
-      cv2.waitKey(0)
+      cropped_images.append(cropped_image)
 
-##################################################
+    return cropped_images
 
+
+if __name__ == "__main__":
+    obj = object_detect()
+    path = "alpr-unconstrained/samples/only_cars/7.png"
+    frame = cv2.imread(path)
+    counter = 1
+    for x in obj.extract_car(frame):
+      cv2.imwrite("detected-cars/car number " + str(counter) + ".jpg", x)
+      counter = counter + 1
