@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+from cv2 import cv2
 import object_detection
 #import color_detection
 #import model_detection
