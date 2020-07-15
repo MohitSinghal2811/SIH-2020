@@ -29,4 +29,4 @@ def image_attr(frame, counter2):
 if __name__ == "__main__":
     path = "alpr-unconstrained/samples/test/har4.jpeg"
     frame = cv2.imread(path)
-    image_attr(frame, 3)
+    image_attr(frame, 4)
