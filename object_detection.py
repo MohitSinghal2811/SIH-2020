@@ -57,7 +57,7 @@ class object_detect(object):
     boxes = []
     confidences = []
     classIDs = []
-    keylist=['car', 'motorbike', 'bus', 'truck']        # Needs some changes
+    keylist=['car', 'bus', 'truck']        # Needs some changes
     dict_boundingbox = {key:[] for key in keylist}
     dict_confidence={key:[] for key in keylist}
 
