@@ -108,31 +108,30 @@ class object_detect(object):
         cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
           0.5, color, 2)
 
-    
-    cv2.imshow("frame",image)
     cv2.imwrite("detected-cars/demo_yolo3.jpg",image)
     print(dict_boundingbox)
     print(dict_confidence)
     cropped_images = []
-    for bbox in dict_boundingbox['car']:
-   # print(bbox)
-    
-    
-      x=bbox[0]
-      y=bbox[1]
-      w=bbox[2]
-      h=bbox[3]
+    for key in keylist:
+      for bbox in dict_boundingbox[key]:
+      #   print(bbox)
 
-      cropped_image=image[y:y+h,x:x+w]
-      #cv2.imshow(cropped_image)
-      cropped_images.append(cropped_image)
+
+        x=bbox[0]
+        y=bbox[1]
+        w=bbox[2]
+        h=bbox[3]
+
+        cropped_image=image[y:y+h,x:x+w]
+        #cv2.imshow(cropped_image)
+        cropped_images.append(cropped_image)
 
     return cropped_images
 
 
 if __name__ == "__main__":
     obj = object_detect()
-    path = "alpr-unconstrained/samples/only_cars/7.png"
+    path = "alpr-unconstrained/samples/only_cars/4.png"
     frame = cv2.imread(path)
     counter = 1
     for x in obj.extract_car(frame):
