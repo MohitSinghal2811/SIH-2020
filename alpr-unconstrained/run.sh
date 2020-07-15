@@ -1,4 +1,4 @@
-#!/bin/bash
+#!//bin//bash
 
 check_file() 
 {
@@ -22,7 +22,7 @@ check_dir()
 
 
 # Check if Darknet is compiled
-check_file "darknet/libdarknet.so"
+check_file "darknet//libdarknet.so"
 retval=$?
 if [ $retval -eq 0 ]
 then
@@ -30,7 +30,7 @@ then
 	exit 1
 fi
 
-lp_model="data/lp-detector/wpod-net_update1.h5"
+lp_model="data//lp-detector//wpod-net_update1.h5"
 input_dir=''
 output_dir=''
 csv_file=''
@@ -41,7 +41,7 @@ usage() {
 	echo ""
 	echo " Usage:"
 	echo ""
-	echo "   bash $0 -i input/dir -o output/dir -c csv_file.csv [-h] [-l path/to/model]:"
+	echo "   bash $0 -i input//dir -o output//dir -c csv_file.csv [-h] [-l path//to//model]:"
 	echo ""
 	echo "   -i   Input dir path (containing JPG or PNG images)"
 	echo "   -o   Output dir path"
@@ -99,8 +99,8 @@ python license-plate-ocr.py $output_dir
 python gen-outputs.py $input_dir $output_dir > $csv_file
 
 # Clean files and draw output
-rm $output_dir/*_lp.png
-rm $output_dir/*car.png
-rm $output_dir/*_cars.txt
-rm $output_dir/*_lp.txt
-rm $output_dir/*_str.txt
+rm $output_dir//*_lp.png
+rm $output_dir//*car.png
+rm $output_dir//*_cars.txt
+rm $output_dir//*_lp.txt
+rm $output_dir//*_str.txt
