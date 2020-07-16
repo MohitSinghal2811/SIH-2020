@@ -10,7 +10,7 @@ def color_segmenter(frame):
 
     low_colors = [[0, 0, 193.8], [0, 0, 0], [94,80,2], [30,85,85.05], [170, 100, 0],[0,0,66.3]]
     high_colors = [[131.00, 30.00, 255], [255, 255, 25], [126, 255, 255], [102.0, 255, 255], [180, 255, 255],[255,33,230.00]]
-    color_names = ["white", "black", "blue", "green", "red"]
+    color_names = ["white", "black", "blue", "green", "red","grey"]
 
     ans = ("UNK", 0)
 
