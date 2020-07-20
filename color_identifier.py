@@ -8,17 +8,25 @@ def color_segmenter(frame):
     hsv_frame=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
 
-    low_colors = [[0, 0, 193.8], [0, 0, 0], [94,80,2], [30,85,85.05], [170, 100, 0],[0,0,66.3]]
-    high_colors = [[131.00, 30.00, 255], [255, 255, 25], [126, 255, 255], [102.0, 255, 255], [180, 255, 255],[255,33,230.00]]
-    color_names = ["white", "black", "blue", "green", "red","grey"]
+    low_colors = [[90, 100,50], [40, 100, 50], [0,100,50],[0,0,0],[0,5,180],[0,5,125]]
+    high_colors = [[120, 255,255], [60,255,255], [20, 255, 255],[180,255,20],[255,255,255],[255,255,150]]
+    color_names = ["blue", "green", "red","black","white","gray"]
+
+    #dont change value without consulting in group
 
     ans = ("UNK", 0)
 
     path = "color-cars/"
 
-
+    red_low=[170,150,90]
+    red_high=[180,255,120]
     for x in range(len(color_names)):
-        color_mask=cv2.inRange(hsv_frame,np.array(low_colors[x]),np.array(high_colors[x]))
+        if(x==2):
+            mask1=cv2.inRange(hsv_frame,np.array(low_colors[x]),np.array(high_colors[x]))
+            mask2=cv2.inRange(hsv_frame,np.array(red_low),np.array(red_high))
+            color_mask=mask1+mask2
+        else:
+            color_mask=cv2.inRange(hsv_frame,np.array(low_colors[x]),np.array(high_colors[x]))
         #color_region=cv2.bitwise_and(frame,frame, mask=color_mask)     
         color_mask = np.array(color_mask)
         flatten_array = color_mask.flatten()
@@ -35,6 +43,6 @@ def color_segmenter(frame):
 
 
 if __name__ == "__main__":
-    path = "alpr-unconstrained/samples/only_cars/10.png"
+    path = "alpr-unconstrained/samples/only_cars/7.png"
     frame = cv2.imread(path)
     print(color_segmenter(frame))      
