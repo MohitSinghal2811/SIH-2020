@@ -10,8 +10,7 @@ def image_attr(frame, counter2):
     os.mkdir(tmp_path)
     tmp_path2 = "samples/cropped/cropped" + str(counter2)
 
-    obj = object_detection.object_detect()
-    cropped_cars = obj.extract_car(frame)
+    cropped_cars = object_detection.extract_car(frame)
     print(len(cropped_cars))
     counter = 1
     for img in cropped_cars:

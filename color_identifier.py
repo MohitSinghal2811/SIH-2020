@@ -18,8 +18,8 @@ def color_segmenter(frame):
 
     path = "color-cars/"
 
-    red_low=[170,150,90]
-    red_high=[180,255,120]
+    red_low=[170,100,50]
+    red_high=[180,255,255]
     for x in range(len(color_names)):
         if(x==2):
             mask1=cv2.inRange(hsv_frame,np.array(low_colors[x]),np.array(high_colors[x]))
@@ -43,6 +43,6 @@ def color_segmenter(frame):
 
 
 if __name__ == "__main__":
-    path = "alpr-unconstrained/samples/only_cars/7.png"
+    path = "alpr-unconstrained/samples/only_cars/test_red.jpg"
     frame = cv2.imread(path)
     print(color_segmenter(frame))      
