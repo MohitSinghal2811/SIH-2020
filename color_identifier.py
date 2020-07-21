@@ -8,11 +8,12 @@ def color_segmenter(frame):
     hsv_frame=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
 
-    low_colors = [[90, 100,50], [40, 100, 50], [0,100,50],[0,0,0],[0,0,180],[0,5,125]]
-    high_colors = [[120, 255,255], [60,255,255], [20, 255, 255],[180,255,20],[255,5,255],[255,255,150]]
+    low_colors = [[90, 100,50], [40, 100, 50], [0,100,50],[0,0,0],[0,0,230],[220,25,153]]
+    high_colors = [[120, 255,255], [60,255,255], [20, 255, 255],[180,255,20],[255,5,255],[240,50,178]]
     color_names = ["blue", "green", "red","black","white","gray"]
 
     #dont change value without consulting in group
+    #whitw-lower v-180
 
     ans = ("UNK", 0)
 
@@ -43,6 +44,6 @@ def color_segmenter(frame):
 
 
 if __name__ == "__main__":
-    path = "alpr-unconstrained/samples/only_cars/test_red.jpg"
+    path = "alpr-unconstrained/samples/only_cars/test_white.jpg"
     frame = cv2.imread(path)
     print(color_segmenter(frame))      
