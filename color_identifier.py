@@ -2,7 +2,7 @@ import numpy as np
 from cv2 import cv2
 
 
-def color_segmenter(frame):
+def color_segmenter(frame, img_name):
 
     frame = np.array(frame)
     hsv_frame=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
@@ -15,10 +15,13 @@ def color_segmenter(frame):
         [0,0,0],[0,0,200],[0,0,66]]
     high_colors = [[120, 255,255], [102,255,255], [20, 255, 255],
         [180,255,20],[145,60,255],[255,33,200]]
+
+    
     color_names = ["blue", "green", "red","black","white","gray"]
 
     #dont change value without consulting in group
     #whitw-lower v-180
+
 
     ans = ("UNK", 0)
 
@@ -45,13 +48,14 @@ def color_segmenter(frame):
             continue
         elif(ad[1][1] > ans[1]):
             ans = (color_names[x], ad[1][1])
-        cv2.imwrite(path + str(color_names[x]) + str(".jpg"), color_mask)
+        cv2.imwrite(path + str(img_name) + "_" + str(color_names[x]) + str(".jpg"), color_mask)
 
     return(ans[0])
 
 
 
 if __name__ == "__main__":
-    path = "alpr-unconstrained/samples/only_cars/test_white.jpg"
+    path = "alpr-unconstrained/samples/Indian_vehicles/4.png"
     frame = cv2.imread(path)
-    print(color_segmenter(frame))      
+    arr = path.split("/")
+    print(color_segmenter(frame, arr[-1][:-4]))      
