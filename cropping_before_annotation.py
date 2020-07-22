@@ -1,21 +1,29 @@
+#run this file in colab,else it will take a lot of time time for yolo to run
+
+import torch
+from IPython.display import Image  # for displaying images   # for downloading models/datasets
+
+print('torch %s %s' % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
+
+
 # 3 files required -> coco.names,yolov3.weigths,yolov3.cfg and a sample image .. 
 # link to files https://drive.google.com/drive/folders/1SJ084lQ7ACXnjnrG8Q8tkfvhm4oAma16?usp=sharing
 # change the paths accordingly
 # change the cv2_imshow function if running on laptop,on colab it will work fine
 
-
+#--------1 block---------
 
 import numpy as np
 import argparse
 import time
-from cv2 import cv2
+import cv2
 import os
 
+	
 
 
-
-def extract_car(frame):
-  path="yolo-coco/coco.names"
+def object_detect(frame):
+  path="/content/drive/My Drive/yolo-object-detection/yolo-coco/coco.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -23,19 +31,15 @@ def extract_car(frame):
   COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
     dtype="uint8")
 
-  weightsPath="yolo-coco/yolov3.weights"
-  configPath ="yolo-coco/yolov3.cfg"
-  
+  path_weights="/content/drive/My Drive/yolo-object-detection/yolo-coco/yolov3.weights"
+  path_model="/content/drive/My Drive/yolo-object-detection/yolo-coco/yolov3.cfg"
+  weightsPath = path_weights
+  configPath = path_model
+
   print("[INFO] loading YOLO from disk...")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
-
-
-#This is not the path of the image
-#it is after cv2 has read the image
-
-
-  image=frame																
+  image = frame																
   (H, W) = image.shape[:2]
 
 
@@ -56,7 +60,7 @@ def extract_car(frame):
   boxes = []
   confidences = []
   classIDs = []
-  keylist=['car', 'bus', 'truck']        # Needs some changes
+  keylist=['person', 'bicycle', 'car', 'motorbike', 'bus', 'truck']
   dict_boundingbox = {key:[] for key in keylist}
   dict_confidence={key:[] for key in keylist}
 
@@ -107,35 +111,62 @@ def extract_car(frame):
       cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
         0.5, color, 2)
 
-  cv2.imwrite("detected-cars/demo_yolo3.jpg",image)
+  
+ # cv2_imshow(image)
+  #cv2.imwrite("demo_yolo3.jpg",image)
   print(dict_boundingbox)
   print(dict_confidence)
-  cropped_images = []
-  for key in keylist:
-    for bbox in dict_boundingbox[key]:
-    #   print(bbox)
-
-
-      x=bbox[0]
-      y=bbox[1]
-      w=bbox[2]
-      h=bbox[3]
-
+  max_conf=0
+  cnt=0;
+  for bbox in dict_boundingbox['car']:
+  # print(bbox)
+  
+  
+    x=bbox[0]
+    y=bbox[1]
+    w=bbox[2]
+    h=bbox[3]
+    
+    if(dict_confidence['car'][cnt]>max_conf):
       cropped_image=image[y:y+h,x:x+w]
-      #cv2.imshow(cropped_image)
-      cropped_images.append(cropped_image)
+      max_conf=dict_confidence['car'][cnt]
 
-  return cropped_images
+    cnt=cnt+1
 
+  cnt1=0;
+  for bbox in dict_boundingbox['truck']:
+  # print(bbox)
+  
+  
+    x=bbox[0]
+    y=bbox[1]
+    w=bbox[2]
+    h=bbox[3]
+    
+    if(dict_confidence['truck'][cnt1]>max_conf):
+      cropped_image=image[y:y+h,x:x+w]
+      max_conf=dict_confidence['truck'][cnt1]
 
-if __name__ == "__main__":
-    #obj = object_detect()
-    path = "C:\\Users\\Dell\\Desktop\\sih\\Audi500\\"
-    for imgPath in os.listdir(path):
+    cnt1=cnt1+1
 
-      frame = cv2.imread(path+imgPath)
-      counter = 1
-      for x in extract_car(frame):
-        print(couter)
-        cv2.imwrite("Audi500_cropped/audi" + str(counter) + ".jpg", x)
-        counter = counter + 1
+  
+  return cropped_image
+
+##################################################
+
+path = "/content/drive/My Drive/SIH/NEW/Audi1"
+counter = 1
+for imgPath in os.listdir(path):
+  frame = cv2.imread(path+"/"+imgPath)
+  
+  #print(frame)
+  
+    
+  try:
+    x=object_detect(frame)
+    print(counter)
+    cv2.imwrite("/content/Audi500_cropped_final/audi" + str(counter) + ".jpg", x)
+    counter = counter + 1
+  except Exception as e:
+    print(e)
+
