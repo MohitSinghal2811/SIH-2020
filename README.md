@@ -3,7 +3,7 @@
 Our solution for SIH-2020
 
 
-To run this first run the following on your terminal
+To run the server on your local machine run the following on your terminal
 
 pip install -r requirements.txt
 
