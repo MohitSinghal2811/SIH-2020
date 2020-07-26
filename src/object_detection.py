@@ -130,12 +130,6 @@ def extract_car(frame):
 
 if __name__ == "__main__":
     #obj = object_detect()
-    path = "C:\\Users\\Dell\\Desktop\\sih\\Audi500\\"
-    for imgPath in os.listdir(path):
-
-      frame = cv2.imread(path+imgPath)
-      counter = 1
-      for x in extract_car(frame):
-        print(couter)
-        cv2.imwrite("Audi500_cropped/audi" + str(counter) + ".jpg", x)
-        counter = counter + 1
+    path = "alpr-unconstrained/samples/Indian_vehicles/3.png"
+    frame = cv2.imread(path)
+    crop_img=extract_car(frame)

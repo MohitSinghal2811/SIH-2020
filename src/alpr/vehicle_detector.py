@@ -15,7 +15,8 @@ from license_plate.license_plate_detection import extract_lp
 
 
 def extract_car(frame):
-  path="data/vehicle-detector/voc.names"
+  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
+ 
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -23,8 +24,8 @@ def extract_car(frame):
   COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
     dtype="uint8")
 
-  weightsPath="data/vehicle-detector/yolo-voc.weights"
-  configPath ="data/vehicle-detector/yolo-voc.cfg"
+  weightsPath="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
+  configPath ="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
   print("Running vehicle-detector.py")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
@@ -93,6 +94,7 @@ def extract_car(frame):
       y=bbox[1]
       w=bbox[2]
       h=bbox[3]
+      # x,y 
       cropped_image=image[y:y+h,x:x+w]
       cropped_images.append(cropped_image)
 
@@ -103,7 +105,7 @@ if __name__ == "__main__":
     path = "../alpr-unconstrained/samples/Indian_vehicles/3.png"
     frame = cv2.imread(path)
     cropped_images = extract_car(frame)
-    counter = 1
+    counter = 2
     for x in cropped_images:
         frame2 = extract_lp(x)
         cv2.imwrite("cropped" + str(counter) + ".jpg", frame2)

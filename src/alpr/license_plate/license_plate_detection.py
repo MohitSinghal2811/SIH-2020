@@ -15,7 +15,7 @@ def adjust_pts(pts,lroi):
 def extract_lp(frame):
 
 	try:
-		wpod_net_path = os.getcwd() + "/license_plate/lp-detector/wpod-net_update1" 
+		wpod_net_path = "/license_plate/lp-detector/wpod-net_update1" 
 		print(os.getcwd())
 		wpod_net = load_model(wpod_net_path)
 		lp_threshold = .5
