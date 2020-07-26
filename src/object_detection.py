@@ -14,8 +14,8 @@ import os
 
 
 
-def extract_car(frame):
-  path="yolo-coco/coco.names"
+def extract_car(frame,writer):
+  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -23,8 +23,8 @@ def extract_car(frame):
   COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
     dtype="uint8")
 
-  weightsPath="yolo-coco/yolov3.weights"
-  configPath ="yolo-coco/yolov3.cfg"
+  weightsPath="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
+  configPath ="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
   
   print("[INFO] loading YOLO from disk...")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
@@ -107,7 +107,8 @@ def extract_car(frame):
       cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
         0.5, color, 2)
 
-  cv2.imwrite("detected-cars/demo_yolo3.jpg",image)
+  frame_copy=image.copy()
+  writer.write(frame_copy)
   print(dict_boundingbox)
   print(dict_confidence)
   cropped_images = []

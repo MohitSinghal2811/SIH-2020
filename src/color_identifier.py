@@ -2,7 +2,7 @@ import numpy as np
 from cv2 import cv2
 
 
-def color_segmenter(frame, img_name):
+def color_segmenter(frame):
 
     frame = np.array(frame)
     hsv_frame=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
@@ -48,7 +48,7 @@ def color_segmenter(frame, img_name):
             continue
         elif(ad[1][1] > ans[1]):
             ans = (color_names[x], ad[1][1])
-        cv2.imwrite(path + str(img_name) + "_" + str(color_names[x]) + str(".jpg"), color_mask)
+        #cv2.imwrite(path + str(img_name) + "_" + str(color_names[x]) + str(".jpg"), color_mask)
 
     return(ans[0])
 
