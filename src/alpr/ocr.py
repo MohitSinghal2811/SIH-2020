@@ -1,22 +1,13 @@
-# 3 files required -> coco.names,yolov3.weigths,yolov3.cfg and a sample image .. 
-# link to files https://drive.google.com/drive/folders/1SJ084lQ7ACXnjnrG8Q8tkfvhm4oAma16?usp=sharing
-# change the paths accordingly
-# change the cv2_imshow function if running on laptop,on colab it will work fine
-
-
-
 import numpy as np
 import argparse
 import time
 from cv2 import cv2
 import os
-from license_plate_detection import extract_lp
 
 
 
-def extract_car(frame):
-  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
- 
+def read_plate(frame):
+  path="data/ocr/ocr-net.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -24,9 +15,9 @@ def extract_car(frame):
   COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
     dtype="uint8")
 
-  weightsPath="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
-  configPath ="C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
-  print("Running vehicle-detector.py")
+  weightsPath="data/ocr/ocr-net.weights"
+  configPath ="data/ocr/ocr-net.cfg"
+  print("Running ocr.py")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
@@ -43,7 +34,7 @@ def extract_car(frame):
   ln = [ln[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
 
-  blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (416, 416),swapRB=True, crop=False)
+  blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (128, 128),swapRB=True, crop=False)
   net.setInput(blob)
   layerOutputs = net.forward(ln)
 
@@ -51,7 +42,7 @@ def extract_car(frame):
   boxes = []
   confidences = []
   classIDs = []
-  keylist=['car', 'bus', 'truck']        # Needs some changes
+  keylist= LABELS
   dict_boundingbox = {key:[] for key in keylist}
   dict_confidence={key:[] for key in keylist}
 
@@ -60,7 +51,7 @@ def extract_car(frame):
       scores = detection[5:]
       classID = np.argmax(scores)
       confidence = scores[classID]
-      if confidence > 0.5:
+      if confidence > 0.4:
         box = detection[0:4] * np.array([W, H, W, H])
         (centerX, centerY, width, height) = box.astype("int")
         x = int(centerX - (width / 2))
@@ -68,8 +59,6 @@ def extract_car(frame):
         if LABELS[classID] in keylist:
           dict_boundingbox[LABELS[classID]].append([x, y, int(width), int(height)])
           dict_confidence[LABELS[classID]].append(float(confidence))
-        
-
         confidences.append(float(confidence))
         boxes.append([x, y, int(width), int(height)])
         classIDs.append(classID)
@@ -94,7 +83,6 @@ def extract_car(frame):
       y=bbox[1]
       w=bbox[2]
       h=bbox[3]
-      # x,y 
       cropped_image=image[y:y+h,x:x+w]
       cropped_images.append(cropped_image)
 
@@ -102,13 +90,12 @@ def extract_car(frame):
 
 
 if __name__ == "__main__":
-    path = "../alpr-unconstrained/samples/Indian_vehicles/3.png"
+    path = "image.png"
     frame = cv2.imread(path)
-    cropped_images = extract_car(frame)
-    counter = 2
+    cropped_images = read_plate(frame)
+    counter = 1
     for x in cropped_images:
-        frame2 = extract_lp(x)
-        cv2.imwrite("cropped" + str(counter) + ".jpg", frame2)
+        cv2.imwrite("cropped" + str(counter) + ".jpg", frame)
         counter+=1
 
 
