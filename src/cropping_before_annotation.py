@@ -1,9 +1,4 @@
-#run this file in colab,else it will take a lot of time time for yolo to run
-
-import torch
-from IPython.display import Image  # for displaying images   # for downloading models/datasets
-
-print('torch %s %s' % (torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
+from IPython.display import Image 
 
 
 # 3 files required -> coco.names,yolov3.weigths,yolov3.cfg and a sample image .. 
