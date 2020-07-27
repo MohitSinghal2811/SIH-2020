@@ -15,8 +15,7 @@ def adjust_pts(pts,lroi):
 def extract_lp(frame):
 
 	try:
-		wpod_net_path = os.getcwd() + "/data/lp-detector/wpod-net_update1" 
-		print(os.getcwd())
+		wpod_net_path = "data/lp-detector/wpod-net_update1"
 		wpod_net = load_model(wpod_net_path)
 		lp_threshold = .5
 
@@ -33,7 +32,8 @@ def extract_lp(frame):
 			Ilp = Ilp*255.0
 			cv2.imwrite("image.png", Ilp)
 
-		return Ilp
+			return Ilp
+		return None
 
 	except:
 		traceback.print_exc()
