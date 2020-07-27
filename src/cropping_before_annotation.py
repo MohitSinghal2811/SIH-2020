@@ -117,7 +117,7 @@ def object_detect(frame):
   print(dict_boundingbox)
   print(dict_confidence)
   max_conf=0
-  cnt=0;
+  cnt=0
   for bbox in dict_boundingbox['car']:
   # print(bbox)
   
@@ -133,7 +133,7 @@ def object_detect(frame):
 
     cnt=cnt+1
 
-  cnt1=0;
+  cnt1=0
   for bbox in dict_boundingbox['truck']:
   # print(bbox)
   

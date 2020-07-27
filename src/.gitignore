@@ -1,5 +1,5 @@
-alpr-unconstrained/data
-yolo-coco/
-cars_dataset/
-alpr/data
-alpr/license_plate/lp-detector
+alpr/alpr_data/
+test_images/
+test_videos/
+test_output/
+
