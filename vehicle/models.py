@@ -7,7 +7,7 @@ class CarRTO(models.Model):
     # Fields
     Brand = models.CharField(max_length=20, null = False, blank = False)
     Owner = models.CharField(max_length=30, null = False, blank = False)
-    DateRegistered = models.DateTimeField(auto_now_add=True, editable=False)
+    DateRegistered = models.DateTimeField(auto_now_add=True)
     CarModel = models.CharField(max_length=20, null = False, blank = False)
     PlateNumber = models.CharField(max_length=10, unique = True, primary_key = True,  null = False, blank  = False)
     Color = models.CharField(max_length=10, null = False, blank = False)
