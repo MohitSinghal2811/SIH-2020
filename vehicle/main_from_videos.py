@@ -2,7 +2,7 @@ import numpy as np
 from cv2 import cv2
 from .main_from_images import extract_attributes
 
-
+path=""
 
 
 def process_video(path):

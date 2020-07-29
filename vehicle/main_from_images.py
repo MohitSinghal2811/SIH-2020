@@ -15,14 +15,16 @@ import os
 
 def extract_attributes(frame, writer):
     try:
-        vehicles, img = extract_car(frame)
+        vehicles, bb_img = extract_car(frame)
         for i in vehicles:
             lp = extract_lp(i)
             maj_color=color_segmenter(i)
             x =  (read_plate(lp))
             print(x)
             print(maj_color)
-            writer.write(img)
+            cv2.putText(bb_img, x, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+            cv2.putText(bb_img, maj_color, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+            writer.write(bb_img)
             return x, maj_color
     except Exception as e:
         print(e)
