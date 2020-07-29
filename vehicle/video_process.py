@@ -109,36 +109,36 @@ def write_frame(frame,writer):
     
 
     
-  img = image.copy()
-  print(dict_boundingbox)
-  print(dict_confidence)
-  cropped_images = []
-  for key in keylist:
-    for bbox in dict_boundingbox[key]:
-      x=bbox[0]
-      y=bbox[1]
-      w=bbox[2]
-      h=bbox[3]
-      # x,y 
-      cropped_image=image[y:y+h,x:x+w]
-      cropped_images.append(cropped_image)
+#   img = image.copy()
+#   print(dict_boundingbox)
+#   print(dict_confidence)
+#   cropped_images = []
+#   for key in keylist:
+#     for bbox in dict_boundingbox[key]:
+#       x=bbox[0]
+#       y=bbox[1]
+#       w=bbox[2]
+#       h=bbox[3]
+#       # x,y 
+#       cropped_image=image[y:y+h,x:x+w]
+#       cropped_images.append(cropped_image)
 
-  cv2.imwrite("src/test_output/bounding_box.jpg", image)
-
-
-  return cropped_images, img
+#   cv2.imwrite("src/test_output/bounding_box.jpg", image)
 
 
-if __name__ == "__main__":
-    path = "../samples/Indian_vehicles/7.png"
-    frame = cv2.imread(path)
-    cv2.imwrite("test.jpg", frame)
-    cropped_images = extract_car(frame)
-    counter = 2
-    for x in cropped_images:
-        frame2 = extract_lp(x)
-        cv2.imwrite("cropped" + str(counter) + ".jpg", frame2)
-        counter+=1
+#   return cropped_images, img
+
+
+# if __name__ == "__main__":
+#     path = "../samples/Indian_vehicles/7.png"
+#     frame = cv2.imread(path)
+#     cv2.imwrite("test.jpg", frame)
+#     cropped_images = extract_car(frame)
+#     counter = 2
+#     for x in cropped_images:
+#         frame2 = extract_lp(x)
+#         cv2.imwrite("cropped" + str(counter) + ".jpg", frame2)
+#         counter+=1
 
 
     
