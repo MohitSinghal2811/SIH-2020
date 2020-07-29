@@ -54,8 +54,8 @@ def color_segmenter(frame):
 
 
 
-if __name__ == "__main__":
-    path = "alpr-unconstrained/samples/Indian_vehicles/4.png"
-    frame = cv2.imread(path)
-    arr = path.split("/")
-    print(color_segmenter(frame, arr[-1][:-4]))      
+# if __name__ == "__main__":
+#     path = "alpr-unconstrained/samples/Indian_vehicles/4.png"
+#     frame = cv2.imread(path)
+#     arr = path.split("/")
+#     print(color_segmenter(frame, arr[-1][:-4]))      

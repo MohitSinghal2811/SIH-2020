@@ -40,7 +40,6 @@ def extract_lp(frame):
 
 	except:
 		traceback.print_exc()
-		sys.exit(1)
 		return None
 
 

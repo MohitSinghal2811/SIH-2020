@@ -89,7 +89,7 @@ def extract_car(frame):
       text = "{}: {:.4f}".format(LABELS[classIDs[i]], confidences[i])
       cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
         0.5, color, 2)
-
+  img = image.copy()
   print(dict_boundingbox)
   print(dict_confidence)
   cropped_images = []
@@ -106,7 +106,7 @@ def extract_car(frame):
   cv2.imwrite("src/test_output/bounding_box.jpg", image)
 
 
-  return cropped_images
+  return cropped_images, img
 
 
 if __name__ == "__main__":
