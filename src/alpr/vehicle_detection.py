@@ -10,13 +10,14 @@ import argparse
 import time
 from cv2 import cv2
 import os
-from license_plate_detection import extract_lp
+from .license_plate_detection import extract_lp
 
 
 
 def extract_car(frame):
   # path="data/vehicle-detector/voc.names"
-  path = "data/vehicle-detector/yolo-coco/coco.names"
+  print(os.getcwd())
+  path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -27,8 +28,8 @@ def extract_car(frame):
   # weightsPath="data/vehicle-detector/yolo-voc.weights"
   # configPath ="data/vehicle-detector/yolo-voc.cfg"
 
-  weightsPath = "data/vehicle-detector/yolo-coco/yolov3.weights"
-  configPath = "data/vehicle-detector/yolo-coco/yolov3.cfg"
+  weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
+  configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
 
   print("Running vehicle-detector.py")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
@@ -55,7 +56,7 @@ def extract_car(frame):
   boxes = []
   confidences = []
   classIDs = []
-  keylist=['car', 'bus', 'truck', 'bike']        # Needs some changes
+  keylist=['car', 'bus', 'truck', 'motorbike']        # Needs some changes
   dict_boundingbox = {key:[] for key in keylist}
   dict_confidence={key:[] for key in keylist}
 
@@ -102,7 +103,7 @@ def extract_car(frame):
       cropped_image=image[y:y+h,x:x+w]
       cropped_images.append(cropped_image)
 
-  cv2.imwrite("bounding_box.jpg", image)
+  cv2.imwrite("src/test_output/bounding_box.jpg", image)
 
 
   return cropped_images

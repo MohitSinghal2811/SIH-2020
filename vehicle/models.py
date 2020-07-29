@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class CarRTO(models.Model):
@@ -19,10 +18,10 @@ class CarRTO(models.Model):
 class CarSurveillance(models.Model):
 
     # Fields
-    LastSeen = models.DateTimeField(auto_now=True, editable=False)
+    LastSeen = models.DateTimeField(editable=True)
     Color = models.CharField(max_length=10)
     CarModel = models.CharField(max_length=20)
-    FirstSeen = models.DateTimeField(auto_now_add=True, editable=False)
+    FirstSeen = models.DateTimeField(editable=False)
     PlateNumber = models.CharField(max_length=10, null = False, blank = False, primary_key = True, unique = True)
     Brand = models.CharField(max_length=20)
     CameraID = models.CharField(max_length = 10, null=False, blank=False)

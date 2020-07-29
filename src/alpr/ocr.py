@@ -7,7 +7,7 @@ import os
 
 
 def read_plate(frame):
-  path="data/ocr/ocr-net.names"
+  path="src/alpr/alpr_data/ocr/ocr-net.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -15,8 +15,8 @@ def read_plate(frame):
   COLORS = np.random.randint(0, 255, size=(len(LABELS), 3),
     dtype="uint8")
 
-  weightsPath="data/ocr/ocr-net.weights"
-  configPath ="data/ocr/ocr-net.cfg"
+  weightsPath="src/alpr/alpr_data/ocr/ocr-net.data"
+  configPath ="src/alpr/alpr_data/ocr/ocr-net.cfg"
   print("Running ocr.py")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 

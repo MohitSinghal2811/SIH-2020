@@ -2,10 +2,10 @@ import sys, os
 import keras
 from cv2 import cv2
 import traceback
-from src.keras_utils import load_model
+from .src.keras_utils import load_model
 from glob import glob
-from src.utils import im2single
-from src.keras_utils import load_model, detect_lp
+from .src.utils import im2single
+from .src.keras_utils import load_model, detect_lp
 
 
 def adjust_pts(pts,lroi):
@@ -14,8 +14,10 @@ def adjust_pts(pts,lroi):
 
 def extract_lp(frame):
 
+	print(os.getcwd())
 	try:
-		wpod_net_path = "data/lp-detector/wpod-net_update1"
+		wpod_net_path = "src/alpr/alpr_data/lp-detector/wpod-net_update1"
+		
 		wpod_net = load_model(wpod_net_path)
 		lp_threshold = .5
 
@@ -30,10 +32,11 @@ def extract_lp(frame):
 		if len(LlpImgs):
 			Ilp = LlpImgs[0]
 			Ilp = Ilp*255.0
-			cv2.imwrite("image.png", Ilp)
+			cv2.imwrite("src/test_output/image.png", Ilp)
 
 			return Ilp
-		return None
+		else:
+			return None
 
 	except:
 		traceback.print_exc()

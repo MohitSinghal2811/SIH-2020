@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CarRTO, CarSurveillance, Camera
+from .models import   Camera, CarSurveillance, CarRTO
 
 class CarRTOAdmin(admin.ModelAdmin):
     readonly_fields = ["DateRegistered", ]
