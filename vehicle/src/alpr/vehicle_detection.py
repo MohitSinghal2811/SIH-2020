@@ -16,8 +16,13 @@ from .license_plate_detection import extract_lp
 
 def extract_car(frame):
   # path="data/vehicle-detector/voc.names"
-  print(os.getcwd())
-  path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
+   
+  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
+
+  weightsPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
+  configPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
+  
+  #path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -28,8 +33,8 @@ def extract_car(frame):
   # weightsPath="data/vehicle-detector/yolo-voc.weights"
   # configPath ="data/vehicle-detector/yolo-voc.cfg"
 
-  weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
-  configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
+ # weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
+  #configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
 
   print("Running vehicle-detector.py")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)

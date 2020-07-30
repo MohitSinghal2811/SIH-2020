@@ -5,20 +5,25 @@
 
 
 
-from .models import Camera
 from src.alpr.vehicle_detection import extract_car
 from src.alpr.license_plate_detection import extract_lp
 from src.alpr.ocr2 import read_plate
 from cv2 import cv2
 from src.color_identifier import color_segmenter
 import os
+import numpy as np
 
 
 
 def write_frame(frame,writer):
   # path="data/vehicle-detector/voc.names"
+    
+  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
+
+  weightsPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
+  configPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
   print(os.getcwd())
-  path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
+  #path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -29,10 +34,10 @@ def write_frame(frame,writer):
   # weightsPath="data/vehicle-detector/yolo-voc.weights"
   # configPath ="data/vehicle-detector/yolo-voc.cfg"
 
-  weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
-  configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
+  # weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
+  # configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
 
-  print("Running vehicle-detector.py")
+  print("Running video_process.py ont this frame")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
@@ -94,16 +99,20 @@ def write_frame(frame,writer):
             try:
                 cropped_image=image[y:y+h,x:x+w]
                 lp = extract_lp(cropped_image)
-                maj_color=color_segmenter(cropped_image)
                 x =  (read_plate(lp))
                 print(x)
-                print(maj_color)
                 cv2.putText(image, x, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
+                
+                maj_color=color_segmenter(cropped_image)
+                print(maj_color)
+                
+
                 cv2.putText(image, maj_color, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
                 writer.write(image)
             
             except Execption as e:
-
+                writer.write(image)
                 print(e)
 
     

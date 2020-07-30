@@ -1,9 +1,9 @@
 import numpy as np
 from cv2 import cv2
-from .main_from_images import extract_attributes
-from .video_process import write_frame
+from main_from_images import extract_attributes
+from video_process import write_frame
 
-path=""
+path="C:/Users/Dell/Desktop/sih/mohitvideo1.mp4"
 
 
 def process_video(path):
@@ -31,9 +31,13 @@ def process_video(path):
 
         
         write_frame(frame,writer)
-        #lp, color = extract_attributes(frame,writer)
+        lp, color = extract_attributes(frame,writer)
         if(lp is not None and color is not None):
             ans.append([lp, color])
         counter += 1
 
     return ans
+
+
+if __name__ == "__main__":
+    process_video(path)
