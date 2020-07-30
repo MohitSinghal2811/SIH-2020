@@ -7,7 +7,8 @@ from cv2 import cv2
 from datetime import datetime
 
 def save_to_database(request):
-    path = "src/test_videos/v1.mp4"
+    
+    path="C:/Users/Dell/Desktop/sih/mohitvideo1.mp4"
     ans = process_video(path)
     
     for x in ans:

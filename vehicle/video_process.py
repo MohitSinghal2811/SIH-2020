@@ -5,11 +5,11 @@
 
 
 
-from src.alpr.vehicle_detection import extract_car
-from src.alpr.license_plate_detection import extract_lp
-from src.alpr.ocr2 import read_plate
+from .src.alpr.vehicle_detection import extract_car
+from .src.alpr.license_plate_detection import extract_lp
+from .src.alpr.ocr2 import read_plate
 from cv2 import cv2
-from src.color_identifier import color_segmenter
+from .src.color_identifier import color_segmenter
 import os
 import numpy as np
 
