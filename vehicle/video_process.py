@@ -37,7 +37,7 @@ def write_frame(frame,writer):
   # weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
   # configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
 
-  print("Running video_process.py ont this frame")
+  print("Running video_process.py on this frame")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
@@ -95,10 +95,16 @@ def write_frame(frame,writer):
         text = "{}: {:.4f}".format(LABELS[classIDs[i]], confidences[i])
         cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
         0.5, color, 2)
-        if classIDs[i] in keylist:
+        print(LABELS[classIDs[i]])
+        if LABELS[classIDs[i]] in keylist:
+            if LABELS[classIDs[i]] =="motorbike":
+              continue
             try:
-                cropped_image=image[y:y+h,x:x+w]
+                
+                cropped_image=image[max(0,y):min(y+h,len(image)),max(0,x):min(x+w,len(image[1]))]
                 lp = extract_lp(cropped_image)
+                print("lp")
+                cv2.imwrite("test_lp.jpg",lp)
                 x =  (read_plate(lp))
                 print(x)
                 cv2.putText(image, x, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
@@ -109,12 +115,12 @@ def write_frame(frame,writer):
                 
 
                 cv2.putText(image, maj_color, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-                writer.write(image)
+                
             
-            except Execption as e:
-                writer.write(image)
+            except Exception as e:
+                
                 print(e)
-
+    writer.write(image)
     
 
     

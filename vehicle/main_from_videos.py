@@ -27,13 +27,13 @@ def process_video(path):
 
         if writer is None:
             fourcc=cv2.VideoWriter_fourcc(*"MJPG")
-            writer=cv2.VideoWriter("src/test_videos/output_video.avi",fourcc,30,(W,H),True)
+            writer=cv2.VideoWriter("src/testing_videos/output_video.avi",fourcc,30,(W,H),True)
 
         
         write_frame(frame,writer)
-        lp, color = extract_attributes(frame,writer)
-        if(lp is not None and color is not None):
-            ans.append([lp, color])
+        # lp, color = extract_attributes(frame)
+        # if(lp is not None and color is not None):
+        #     ans.append([lp, color])
         counter += 1
 
     return ans

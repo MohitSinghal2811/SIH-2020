@@ -16,7 +16,7 @@ def adjust_pts(pts,lroi):
 
 def extract_lp(frame):
 
-	print("extracting lp")
+	print("extracting lp............")
 	try:
 		wpod_net_path = path
 		

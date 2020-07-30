@@ -36,7 +36,7 @@ def extract_car(frame):
  # weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
   #configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
 
-  print("Running vehicle-detector.py")
+  print("Running vehicle-detector.py for database")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
@@ -98,14 +98,18 @@ def extract_car(frame):
   print(dict_boundingbox)
   print(dict_confidence)
   cropped_images = []
+
+  
   for key in keylist:
+    if key=='motorbike':
+      continue
     for bbox in dict_boundingbox[key]:
       x=bbox[0]
       y=bbox[1]
       w=bbox[2]
       h=bbox[3]
       # x,y 
-      cropped_image=image[y:y+h,x:x+w]
+      cropped_image=image[max(0,y):min(y+h,len(image)),max(0,x):min(x+w,len(image[1]))]
       cropped_images.append(cropped_image)
 
   cv2.imwrite("src/test_output/bounding_box.jpg", image)
