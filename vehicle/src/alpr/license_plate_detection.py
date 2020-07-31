@@ -15,17 +15,10 @@ def adjust_pts(pts,lroi):
 
 
 def extract_lp(frame):
-<<<<<<< HEAD:vehicle/src/alpr/license_plate_detection.py
 	
 	print(os.getcwd())
 	try:
 		wpod_net_path = "vehicle/src/alpr/alpr_data/lp-detector/wpod-net_update1"
-=======
-
-	print("extracting lp............")
-	try:
-		wpod_net_path = path
->>>>>>> 5405f5d132a3817a7a956f4f201028da0f17085a:src/alpr/license_plate_detection.py
 		
 		wpod_net = load_model(wpod_net_path)
 		lp_threshold = .5
@@ -41,7 +34,7 @@ def extract_lp(frame):
 		if len(LlpImgs):
 			Ilp = LlpImgs[0]
 			Ilp = Ilp*255.0
-			cv2.imwrite("vehicle/src/test_output/image.png", Ilp)
+			# cv2.imwrite("vehicle/src/test_output/image.png", Ilp)
 
 			return Ilp
 		else:

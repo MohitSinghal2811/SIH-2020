@@ -54,17 +54,15 @@ def queryfromimage(request):
         frame = cv2.imread(path)
 
         vehicles, img = extract_car(frame)
-        cv2.imwrite("temp3.jpg", vehicles[0])
         for i in vehicles:
-            cv2.imwrite("temp2.jpg", img)
-            cv2.imwrite("temp1.jpg", i)
             maj_color=color_segmenter(i)
             print(maj_color)
             lp = extract_lp(i)
             x =  (read_plate(lp))
             print(x)
+            context = {"major_color": maj_color, "number_plate": x}
 
-    return HttpResponse({"HI"})
+    return render(request, "vehicle/submitted.html", context)
 
 
 

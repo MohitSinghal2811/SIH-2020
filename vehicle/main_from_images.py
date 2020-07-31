@@ -11,20 +11,20 @@ from vehicle.src.alpr.license_plate_detection import extract_lp
 from vehicle.src.alpr.ocr2 import read_plate
 from cv2 import cv2
 from vehicle.src.color_identifier import color_segmenter
-# import os
-# def extract_attributes(frame):
-#     try:
-#         vehicles, bb_img = extract_car(frame)
-#         for i in vehicles:
-#             lp = extract_lp(i)
-#             maj_color=color_segmenter(i)
-#             x =  (read_plate(lp))
-#             print(x)
-#             print(maj_color)
-#         return x, maj_color
-#     except Exception as e:
-#         print(e)
-#         return None, None
+import os
+def extract_attributes(frame):
+    try:
+        vehicles, bb_img = extract_car(frame)
+        for i in vehicles:
+            lp = extract_lp(i)
+            maj_color=color_segmenter(i)
+            x =  (read_plate(lp))
+            print(x)
+            print(maj_color)
+        return x, maj_color
+    except Exception as e:
+        print(e)
+        return None, None
 
 
 
