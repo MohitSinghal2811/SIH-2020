@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-from src.alpr.vehicle_detection import extract_car
-from src.alpr.license_plate_detection import extract_lp
-from src.alpr.ocr2 import read_plate
-=======
-from .models import Camera
-from .src.alpr.vehicle_detection import extract_car
-from .src.alpr.license_plate_detection import extract_lp
-from .src.alpr.ocr2 import read_plate
->>>>>>> 5405f5d132a3817a7a956f4f201028da0f17085a
+from vehicle.src.alpr.vehicle_detection import extract_car
+from vehicle.src.alpr.license_plate_detection import extract_lp
+from vehicle.src.alpr.ocr2 import read_plate
 from cv2 import cv2
 
 

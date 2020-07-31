@@ -12,8 +12,6 @@ from vehicle.src.alpr.ocr2 import read_plate
 from cv2 import cv2
 from vehicle.src.color_identifier import color_segmenter
 # import os
-
-
 # def extract_attributes(frame):
 #     try:
 #         vehicles, bb_img = extract_car(frame)
