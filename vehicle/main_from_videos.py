@@ -7,7 +7,7 @@ from .main_from_images import extract_attributes
 
 def process_video(path):
     cap=cv2.VideoCapture(path)    
-    target = 200
+    target = 20
     counter = 1
 
     writer=None

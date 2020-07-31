@@ -1,4 +1,3 @@
-from .models import Camera
 from src.alpr.vehicle_detection import extract_car
 from src.alpr.license_plate_detection import extract_lp
 from src.alpr.ocr2 import read_plate

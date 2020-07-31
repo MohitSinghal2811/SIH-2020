@@ -27,7 +27,7 @@ SECRET_KEY = 'b7f4-96+9nf$)m$*el^-62%1^f-#*+91skb=c)hxo3$+^ooqqd'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+APPEND_SLASH = False
 
 # Application definition
 
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -121,6 +121,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-django.setup()
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR,'vehicle/static/vehicle')
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# django.setup()
+# # Activate Django-Heroku.
+# django_heroku.settings(locals())
