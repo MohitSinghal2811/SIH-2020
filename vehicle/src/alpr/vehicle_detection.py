@@ -16,8 +16,18 @@ from .license_plate_detection import extract_lp
 
 def extract_car(frame):
   # path="data/vehicle-detector/voc.names"
+<<<<<<< HEAD:vehicle/src/alpr/vehicle_detection.py
   print(os.getcwd())
   path = "vehicle/src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
+=======
+   
+  path="C:/Users/Dell/Desktop/sih/yolo-coco/coco.names"
+
+  weightsPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.weights"
+  configPath = "C:/Users/Dell/Desktop/sih/yolo-coco/yolov3.cfg"
+  
+  #path = "src/alpr/alpr_data/vehicle-detector/yolo-coco/coco.names"
+>>>>>>> 5405f5d132a3817a7a956f4f201028da0f17085a:src/alpr/vehicle_detection.py
   labelsPath = path
   LABELS = open(labelsPath).read().strip().split("\n")
 
@@ -28,10 +38,15 @@ def extract_car(frame):
   # weightsPath="data/vehicle-detector/yolo-voc.weights"
   # configPath ="data/vehicle-detector/yolo-voc.cfg"
 
+<<<<<<< HEAD:vehicle/src/alpr/vehicle_detection.py
   weightsPath = "vehicle/src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
   configPath = "vehicle/src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
+=======
+ # weightsPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.weights"
+  #configPath = "src/alpr/alpr_data/vehicle-detector/yolo-coco/yolov3.cfg"
+>>>>>>> 5405f5d132a3817a7a956f4f201028da0f17085a:src/alpr/vehicle_detection.py
 
-  print("Running vehicle-detector.py")
+  print("Running vehicle-detector.py for database")
   net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
@@ -93,18 +108,26 @@ def extract_car(frame):
   print(dict_boundingbox)
   print(dict_confidence)
   cropped_images = []
+
+  
   for key in keylist:
+    if key=='motorbike':
+      continue
     for bbox in dict_boundingbox[key]:
       x=bbox[0]
       y=bbox[1]
       w=bbox[2]
       h=bbox[3]
       # x,y 
+<<<<<<< HEAD:vehicle/src/alpr/vehicle_detection.py
       print(x, y, w, h)
       cropped_image=image[max(y, 0):min(y+h,len(img)),max(0, x):min(x+w, len(img[1]))]
       print(cropped_image)
       cv2.imwrite("image5.jpg", image)
       cv2.imwrite("image4.jpg",cropped_image)
+=======
+      cropped_image=image[max(0,y):min(y+h,len(image)),max(0,x):min(x+w,len(image[1]))]
+>>>>>>> 5405f5d132a3817a7a956f4f201028da0f17085a:src/alpr/vehicle_detection.py
       cropped_images.append(cropped_image)
 
   cv2.imwrite("vehicle/src/test_output/bounding_box.jpg", image)

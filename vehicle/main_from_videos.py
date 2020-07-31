@@ -1,8 +1,9 @@
 import numpy as np
 from cv2 import cv2
 from .main_from_images import extract_attributes
+from .video_process import write_frame
 
-
+path="C:/Users/Dell/Desktop/sih/mohitvideo1.mp4"
 
 
 def process_video(path):
@@ -26,12 +27,17 @@ def process_video(path):
 
         if writer is None:
             fourcc=cv2.VideoWriter_fourcc(*"MJPG")
-            writer=cv2.VideoWriter("src/test_videos/output_video.avi",fourcc,30,(W,H),True)
+            writer=cv2.VideoWriter("src/testing_videos/output_video.avi",fourcc,30,(W,H),True)
 
-        if(counter%target==0):
-            lp, color = extract_attributes(frame,writer)
-            if(lp is not None and color is not None):
-                ans.append([lp, color])
+        if(counter%10==0):
+            write_frame(frame,writer)
+        # lp, color = extract_attributes(frame)
+        # if(lp is not None and color is not None):
+        #     ans.append([lp, color])
         counter += 1
 
     return ans
+
+
+if __name__ == "__main__":
+    process_video(path)
